@@ -1,3 +1,4 @@
+import sqlite3
 import sys
 
 from PyQt5 import uic  # Импортируем uic
@@ -8,14 +9,15 @@ class MyWidget(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('main.ui', self)  # Загружаем дизайн
+        self.select_data()
 
     def select_data(self):
-        # Получим результат запроса,
-        # который ввели в текстовое поле
-        query = '''query'''
-        genre = (self.parameterSelection.currentText(),)
-        res = self.connection.cursor().execute(query, genre).fetchall()
+        con = sqlite3.connect('coffee.sqlite')
+        query = '''SELECT * from coffee '''
+        res = con.cursor().execute(query).fetchall()
         # Заполним размеры таблицы
+        self.tableWidget.setHorizontalHeaderLabels(['ID', 'Название сорта', 'Степень обжарки', 'Молотый/в зернах',
+                                                    'Описание вкуса', 'Цена', 'Обьем упаковки'])
         self.tableWidget.setColumnCount(7)
         self.tableWidget.setRowCount(0)
         # Заполняем таблицу элементами
