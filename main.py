@@ -16,10 +16,10 @@ class MyWidget(QMainWindow):
         query = '''SELECT * from coffee '''
         res = con.cursor().execute(query).fetchall()
         # Заполним размеры таблицы
-        self.tableWidget.setHorizontalHeaderLabels(['ID', 'Название сорта', 'Степень обжарки', 'Молотый/в зернах',
-                                                    'Описание вкуса', 'Цена', 'Обьем упаковки'])
         self.tableWidget.setColumnCount(7)
         self.tableWidget.setRowCount(0)
+        self.tableWidget.setHorizontalHeaderLabels(['ID', 'Название сорта', 'Степень обжарки', 'Молотый/в зернах',
+                                                    'Описание вкуса', 'Цена', 'Обьем упаковки'])
         # Заполняем таблицу элементами
         for i, row in enumerate(res):
             self.tableWidget.setRowCount(
